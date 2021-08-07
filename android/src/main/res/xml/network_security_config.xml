@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 抓包使用，debug模式下默认可以信任用户手动安装的证书 -->
+<network-security-config>
+
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">lkme.cc</domain>
+    </domain-config>
+
+    <base-config cleartextTrafficPermitted="true" />
+
+    <debug-overrides>
+        <trust-anchors>
+            <certificates src="user" />
+        </trust-anchors>
+    </debug-overrides>
+
+</network-security-config>
