@@ -15,8 +15,6 @@ NetWorkConfigManager.addConfig(
           headers: {
             "Authorization": "Bearer",
           },
-          //param里面的公共参数，一般无用
-          commonParams: {},
         ));
 ```
 每个 domainKey 对应独立的 `netWorkConfig` 配置，每个配置会生成独立的 `retrofit` 请求实例。
@@ -34,10 +32,6 @@ class TestRequest extends RequestBaseLoader<String> {
   ///接口具体路径
   @override
   String get path => "api/trans.php";
-
-  //请求参数外层是否套 params common，默认为true
-  @override
-  bool get isDataEncapsulated => false;
 
   ///接口传参
   @override

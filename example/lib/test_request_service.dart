@@ -9,10 +9,6 @@ class TestRequest extends RequestBaseLoader<String> {
   @override
   String get path => "api/trans.php";
 
-  //请求参数外层是否套 params common，默认为true
-  @override
-  bool get isDataEncapsulated => false;
-
   @override
   Map<String, dynamic> get data => {
         "msg": "你好",

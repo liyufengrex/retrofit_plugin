@@ -5,9 +5,6 @@ import 'retrofit_plugin.dart';
 
 ///调用原生网络库
 abstract class RequestBaseLoader<T> {
-  ///请求参数外层是否套 params common，默认为true
-  bool get isDataEncapsulated => true;
-
   ///请求path
   String get path;
 
@@ -48,14 +45,7 @@ abstract class RequestBaseLoader<T> {
 
   ///获取请求传参
   Map<String, dynamic> _getParams() {
-    Map<String, dynamic> params = Map();
-    if (isDataEncapsulated) {
-      params['common'] = _getConfig().commonParams ?? {};
-      params['params'] = data ?? {};
-    } else {
-      params = data ?? {};
-    }
-    return params;
+    return data ?? {};
   }
 
   Request _createReq() {

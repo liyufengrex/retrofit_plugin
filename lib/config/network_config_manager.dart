@@ -18,11 +18,9 @@ abstract class NetWorkConfigManager {
 class NetWorkConfig {
   final String baseUrl;
   final Map<String, String> headers;
-  final Map<String, dynamic> commonParams;
 
   NetWorkConfig({
     this.baseUrl,
     this.headers,
-    this.commonParams,
   });
 }

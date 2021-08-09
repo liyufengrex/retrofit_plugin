@@ -10,8 +10,6 @@ abstract class NetWorkConfigBuild {
           headers: {
             "Authorization": "Bearer",
           },
-          //param里面的公共参数，一般无用
-          commonParams: {},
         ));
   }
 }
