@@ -11,7 +11,7 @@ abstract class NetWorkConfigManager {
 
   static NetWorkConfig getConfig({String domainKey}) {
     var config = _configs[domainKey];
-    return config == null ? _configs.values.first : config;
+    return config == null ? _configs.values.last : config;
   }
 }
 

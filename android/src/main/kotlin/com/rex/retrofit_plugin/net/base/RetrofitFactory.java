@@ -28,7 +28,7 @@ public class RetrofitFactory {
         Retrofit.Builder mRetrofitBuilder = new Retrofit.Builder();
         mRetrofitBuilder.baseUrl(baseUrl);
         mRetrofitBuilder.addConverterFactory(ScalarsConverterFactory.create());
-//        mRetrofitBuilder.addConverterFactory(GsonConverterFactory.create());
+        mRetrofitBuilder.addConverterFactory(GsonConverterFactory.create());
         mRetrofitBuilder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
         mRetrofitBuilder.client(buildOkHttpClient());
         return mRetrofitBuilder.build();
