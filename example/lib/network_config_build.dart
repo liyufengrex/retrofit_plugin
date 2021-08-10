@@ -27,17 +27,12 @@ abstract class NetWorkConfigBuild {
 
 class _Intercept extends NetworkIntercept {
   @override
-  onRequest(Request request) {
-    print("log: ${request.toString()}");
-  }
-
-  @override
-  onResponse(Response response) {
-    print("log: ${response.toString()}");
-  }
-
-  @override
-  onError(String errorMsg) {
-    print("log-error: $errorMsg");
+  onResponse(Request request, Response response) {
+    if (response.success) {
+      print("log: ${request.toString()} - ${response.toString()}");
+    } else {
+      ///系统错误
+      print("log-error: ${request.toString()} - ${response.toString()}");
+    }
   }
 }

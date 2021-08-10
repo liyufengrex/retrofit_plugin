@@ -64,14 +64,10 @@ abstract class RequestBaseLoader<T> {
   ///请求结果为 map
   Future<Map<String, dynamic>> request() async {
     Request _request = _createReq();
-    //添加 request 拦截器
-    if (intercept != null) {
-      intercept.onRequest(_request);
-    }
     Response response = await NativeRequestTool.doRequest(_request);
     //添加 response 拦截器
     if (intercept != null) {
-      intercept.onResponse(response);
+      intercept.onResponse(_request, response);
     }
     if (response.success) {
       Map<String, dynamic> result;
@@ -82,10 +78,6 @@ abstract class RequestBaseLoader<T> {
       }
       return result;
     } else {
-      //网络层错误
-      if (intercept != null) {
-        intercept.onError(response.data);
-      }
       throw Exception(response.data);
     }
   }
