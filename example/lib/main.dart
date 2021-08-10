@@ -25,8 +25,16 @@ class _MyAppState extends State<MyApp> {
   String _data = "";
 
   //发送数据到原生进行封装
-  _onTrasformData() async {
-    TestRequest().execute().then((value) {
+  _post() async {
+    PostRequest().execute().then((value) {
+      setState(() {
+        _data = value;
+      });
+    });
+  }
+
+  _get() async {
+    GetRequest().execute().then((value) {
       setState(() {
         _data = value;
       });
@@ -39,12 +47,9 @@ class _MyAppState extends State<MyApp> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextButton(
-              onPressed: () {
-                _onTrasformData();
-              },
-              child: Text("发送数据到原生")),
-          Text('原生返回数据：$_data'),
+          TextButton(onPressed: _post, child: Text("Post")),
+          TextButton(onPressed: _get, child: Text("Get")),
+          Text('请求返回结果：$_data'),
         ],
       ),
     );

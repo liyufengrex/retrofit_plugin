@@ -4,18 +4,39 @@
 
 ## 使用
 
-+ 网络层配置初始化（在壳初始化后直接调用）
++ 网络层添加配置（在壳初始化后直接调用）
 
 ```
-NetWorkConfigManager.addConfig(
-        "default",
+NetWorkConfigManager.addDefault(
         NetWorkConfig(
           baseUrl: "http://api.wpbom.com/",
           //公共头部
           headers: {
             "Authorization": "Bearer",
           },
+          intercept: _Intercept()
         ));
+
+```
++ 自定义拦截器，主要用于 log 打印
+
+```
+class _Intercept extends NetworkIntercept {
+  @override
+  onRequest(Request request) {
+    print("log: ${request.toString()}");
+  }
+
+  @override
+  onResponse(Response response) {
+    print("log: ${response.toString()}");
+  }
+
+  @override
+  onError(String errorMsg) {
+    print("log-error: $errorMsg");
+  }
+}
 ```
 每个 domainKey 对应独立的 `netWorkConfig` 配置，每个配置会生成独立的 `retrofit` 请求实例。
 

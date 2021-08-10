@@ -29,6 +29,9 @@ abstract class RequestBaseLoader<T> {
     return _getConfig().baseUrl;
   }
 
+  ///拦截器
+  NetworkIntercept get intercept => _getConfig().intercept;
+
   ///获取请求头
   Map<String, String> _getHeaders() {
     Map<String, String> headers = _getConfig().headers;
@@ -60,7 +63,16 @@ abstract class RequestBaseLoader<T> {
 
   ///请求结果为 map
   Future<Map<String, dynamic>> request() async {
-    Response response = await NativeRequestTool.doRequest(_createReq());
+    Request _request = _createReq();
+    //添加 request 拦截器
+    if (intercept != null) {
+      intercept.onRequest(_request);
+    }
+    Response response = await NativeRequestTool.doRequest(_request);
+    //添加 response 拦截器
+    if (intercept != null) {
+      intercept.onResponse(response);
+    }
     if (response.success) {
       Map<String, dynamic> result;
       try {
@@ -71,6 +83,9 @@ abstract class RequestBaseLoader<T> {
       return result;
     } else {
       //网络层错误
+      if (intercept != null) {
+        intercept.onError(response.data);
+      }
       throw Exception(response.data);
     }
   }
